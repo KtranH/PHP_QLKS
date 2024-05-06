@@ -1,7 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeUser;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeUser::class, 'LoadActivity']);
