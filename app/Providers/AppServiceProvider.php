@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use App\Http\Controllers\SidebarUser;
+use App\Models\DichVu;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('sideBar', function ($view) {
+            $sidebarUser = new SidebarUser();
+            $dichvu = $sidebarUser->loadDichVu();
+            $view->with('dichvu', $dichvu);
+        });
     }
+
+
+
+    
+
 }
