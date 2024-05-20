@@ -137,3 +137,16 @@
     line-height: 1.5;
     color: #191970;
 }
+
+.grayscale {
+    filter: grayscale(100%);
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.disabled .card-img img { 
+    filter: grayscale(100%); 
+}

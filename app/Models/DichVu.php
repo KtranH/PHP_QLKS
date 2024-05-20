@@ -16,6 +16,7 @@ class DichVu extends Model
         'GIA',
         'MOTA',
         'HinhAnh',
+        'ISDELETE',
     ];
 
     public static function getAllDichVu()

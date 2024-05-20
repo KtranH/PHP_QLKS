@@ -94,7 +94,6 @@
 
                         </div><!-- End Customers Card -->
 
-                        <!-- Reports -->
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
@@ -106,18 +105,17 @@
                                         $firstImage = $images[0];
                                         $format_cost = number_format($dv->GIA, 0, ',', '.');
                                         @endphp
-    
+                        
                                         <div class="col-md-4 mb-4">
-                                            <div class="Ha card my-specific-card">
+                                            <div class="Ha card my-specific-card {{ $dv->ISDELETE == 0 ? 'disabled' : '' }}">
                                                 <div class="card-img">
-                                                    <img src="{{$firstImage}}" alt="">
+                                                    <img src="{{$firstImage}}" alt="" class="{{ $dv->ISDELETE == 0 ? 'grayscale' : '' }}"> 
                                                 </div>
                                                 <div class="card-info">
                                                     <p class="Toan_text-title"> {{ $dv->TENDV }}</p>
                                                     <p class="card-text"><span style="font-weight:bold;">Mô tả:</span>
                                                         {{ Str::limit($dv->MOTA, 90, $end='...') }}
                                                     </p>
-    
                                                 </div>
                                                 <div class="card-footer">
                                                     <span class="text-title rend-cost">{{ $format_cost }}<sup>đ</sup></span>
@@ -133,7 +131,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-    
+                        
                             </div>
                         </div><!-- End Recent Sales -->
 

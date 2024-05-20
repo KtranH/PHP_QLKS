@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DichVu;
 use Illuminate\Http\Request;
 
 class HomeUser extends Controller
@@ -13,4 +14,6 @@ class HomeUser extends Controller
         $data = json_decode($fileJson, true);
         return view("User.Home.home", compact('lines','data'));
     }
+
+   
 }
