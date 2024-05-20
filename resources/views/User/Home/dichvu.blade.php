@@ -1,5 +1,6 @@
 <head>
     <link href="{{ url('assets/css/baotoan.css') }}" rel="stylesheet">
+    <link href="{{ url('assets/css/Ha.css') }}" rel="stylesheet">
 </head>
 @extends('container')
 @section('body')
@@ -97,39 +98,42 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Dịch Vụ<span>/{{ $loaiDV->TENDV }}</span></h5>
-                                    <div class="ContainerDV">
-                                        <form action="POST">
-                                            <div class="titleDV">Thông tin dịch vụ khách sạn GTX</div>
-                                            <div class="content">
-                                                <div class="imagesDV">
-                                                    <img src="{{ $loaiDV->HinhAnh }}" alt="">
+                                    <h5 class="card-title">Dịch Vụ <span>/Tất cả dịch vụ</span></h5>
+                                    <div class="row bg-white" style="padding:20px;">
+                                        @foreach($allDichVu as $dv)
+                                        @php
+                                        $images = explode("|", $dv->HINHANH);
+                                        $firstImage = $images[0];
+                                        $format_cost = number_format($dv->GIA, 0, ',', '.');
+                                        @endphp
+    
+                                        <div class="col-md-4 mb-4">
+                                            <div class="Ha card my-specific-card">
+                                                <div class="card-img">
+                                                    <img src="{{$firstImage}}" alt="">
                                                 </div>
-                                                <div class="details">
-                                                    <div class="titleNameKS">
-                                                        Khách Sạn GTX
-                                                    </div>
-                                                    <div class="titleTenDV">
-                                                       Tên dịch vụ: <span>{{ $loaiDV->TENDV }}</span>
-                                                    </div>
-                                                    <div class="GiaDV">
-                                                        Giá dịch vụ: <span>{{ $loaiDV->GIA }}$</span>
-                                                    </div>
-                                                    <div class="btnThemDV">
-                                                        <button>Thêm Dịch Vụ</button>
+                                                <div class="card-info">
+                                                    <p class="Toan_text-title"> {{ $dv->TENDV }}</p>
+                                                    <p class="card-text"><span style="font-weight:bold;">Mô tả:</span>
+                                                        {{ Str::limit($dv->MOTA, 90, $end='...') }}
+                                                    </p>
+    
+                                                </div>
+                                                <div class="card-footer">
+                                                    <span class="text-title rend-cost">{{ $format_cost }}<sup>đ</sup></span>
+                                                    <div class="card-button">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                                            <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                                            <path fill="#fafafa" d="M320 32c0-9.9-4.5-19.2-12.3-25.2S289.8-1.4 280.2 1l-179.9 45C79 51.3 64 70.5 64 92.5V448H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H96 288h32V480 32zM256 256c0 17.7-10.7 32-24 32s-24-14.3-24-32s10.7-32 24-32s24 14.3 24 32zm96-128h96V480c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H512V128c0-35.3-28.7-64-64-64H352v64z" />
+                                                        </svg>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
-                                        <div class="footerDV">
-                                            <i>Cảm ơn quý đã lựa chọn dịch vụ tại khách sạn GTX !</i>
-                                            <i>Chúc quý khách có một kỳ nghỉ nghỉ vui vẻ và thật hạnh phúc.</i>
                                         </div>
-
-
+                                        @endforeach
                                     </div>
-
                                 </div>
+    
                             </div>
                         </div><!-- End Recent Sales -->
 

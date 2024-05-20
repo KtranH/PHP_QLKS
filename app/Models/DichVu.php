@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class DichVu extends Model
 {
@@ -13,12 +14,15 @@ class DichVu extends Model
     protected $fillable = [
         'TENDV',
         'GIA',
+        'MOTA',
         'HinhAnh',
     ];
 
-    public static function loadChiTietDichVu($dv)
+    public static function getAllDichVu()
     {
-        return self::where('MADV', $dv)->first();
+        $dichvu = DB::select("select * from dichvu");
+        return $dichvu;
     }
+
     
 }

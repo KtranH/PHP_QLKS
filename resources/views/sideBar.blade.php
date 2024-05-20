@@ -79,18 +79,11 @@
                     class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                @if ($dichvu)
-                    @foreach ($dichvu as $dv)
-                        <li>
-                            <a href="{{ route('dichvu', ['dv' => $dv->MADV]) }}">
-                                <i class="bi bi-circle"></i><span>{{ $dv->TENDV }}</span>
-                            </a>
-                        </li>
-                    @endforeach
-                @else
-                    <p>Không có loại dịch vụ nào được tìm thấy.</p>
-                @endif
-
+                <li>
+                    <a href="{{route('dichvu')}}">
+                        <i class="bi bi-circle"></i><span>Tất Cả Dịch Vụ</span>
+                    </a>
+                </li>
             </ul>
         </li><!-- End Charts Nav -->
 

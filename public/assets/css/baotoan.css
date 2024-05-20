@@ -130,3 +130,10 @@
     color: rgb(0, 49, 89);
     font-weight: bold;
 }
+
+.Toan_text-title{
+    font-weight: 900;
+    font-size: 1.2em;
+    line-height: 1.5;
+    color: #191970;
+}
