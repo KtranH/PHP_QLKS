@@ -22,9 +22,8 @@ class HomeUser extends Controller
             $output = '';
             $searchTerm = $request->search;
             $data = is_numeric($searchTerm)
-                ? DB::select('select * from loaiphong where SUCCHUA=?', [$searchTerm])
-                : DB::select("select * from loaiphong where TENLOAIPHONG like ? OR VITRI like ?", ['%' . $searchTerm . '%', '%' . $searchTerm . '%']);
-
+                ? DB::select('select * from loaiphong where SUCCHUA=? and ISDELETE=1', [$searchTerm])
+                : DB::select("select * from loaiphong where ISDELETE=1 and(TENLOAIPHONG like ? OR VITRI like ?)", ['%' . $searchTerm . '%', '%' . $searchTerm . '%']);
             if (count($data) > 0) {
                 $output = '<ul>';
                 foreach ($data as $row) {
@@ -55,7 +54,7 @@ class HomeUser extends Controller
             "
     SELECT * 
     FROM loaiphong 
-    WHERE TENLOAIPHONG LIKE ? 
+    WHERE  TENLOAIPHONG LIKE ? 
         OR SUCCHUA = ? 
         OR VITRI LIKE ?",
             [$likeSearchTerm, $searchTerm, $likeSearchTerm]

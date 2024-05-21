@@ -21,7 +21,13 @@ class LoaiPhong extends Model
         'SOLUONG',
         'ANH',
         'GIATHUE',
-        'VITRI'
+        'VITRI',
+        'DIENTICH',
+        'TIENICH',
+        'NOITHAT',
+        'QUYDINH',
+        'ISDELETE'
+
     ];
     ////load thông tin tất cả loại phòng//
     public static function getALLCategory()
