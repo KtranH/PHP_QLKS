@@ -118,7 +118,13 @@
                                                     </p>
                                                 </div>
                                                 <div class="card-footer">
-                                                    <span class="text-title rend-cost">{{ $format_cost }}<sup>đ</sup></span>
+                                                    <span class="text-title rend-cost">
+                                                        @if($dv->ISDELETE == 0)
+                                                            Không còn hoạt động
+                                                        @else
+                                                            {{ $format_cost }}<sup>đ</sup>
+                                                        @endif
+                                                    </span>
                                                     <div class="card-button">
                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                                             <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
