@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'khachhang',
         ],
     ],
 
@@ -60,11 +60,10 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'khachhang' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => App\Models\khachhang::class,
         ],
-
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

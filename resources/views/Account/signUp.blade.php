@@ -18,7 +18,10 @@
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+
     <!-- Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   
@@ -33,16 +36,17 @@
   
     <!-- Template Main CSS File -->
     <link href="{{ url('assets/css/style.css')}}" rel="stylesheet">
+    <link href="{{ url('assets/css/khoi.css')}}" rel="stylesheet">
   
 </head>
-<body>
+<body >
     <main>
         <div class="container">
     
           <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
               <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                <div class="col-lg-5 col-md-6 d-flex flex-column align-items-center justify-content-center">
     
                   <div class="d-flex justify-content-center py-4">
                     <a href="index.html" class="logo d-flex align-items-center w-auto">
@@ -51,20 +55,21 @@
                     </a>
                   </div><!-- End Logo -->
     
-                  <div class="card mb-3">
+                  <div class="card mb-3" style="border-radius:20px">
     
                     <div class="card-body">
     
                       <div class="pt-4 pb-2">
-                        <h5 class="card-title text-center pb-0 fs-4">Đăng ký tài khoản</h5>
+                        <h5 class="card-title text-center pb-0 fs-4" style="font-family: Montserrat, sans-serif;font-optical-sizing: auto;font-weight: 500;">Đăng ký tài khoản</h5>
                         <p class="text-center small">Vui lòng nhập đầy đủ thông tin để tạo tài khoản</p>
                       </div>
     
-                      <form class="row g-3 needs-validation" novalidate>
+                      <form class="row g-3 needs-validation" novalidate method="POST" action="{{ route('signup') }}">
+                        @csrf
                         <div class="col-12">
                           <label for="yourName" class="form-label">Nhập họ tên</label>
-                          <input type="text" name="name" class="form-control" id="yourName" required>
-                          <div class="invalid-feedback">Vui lòng nhập vào họ tên!</div>
+                          <input type="text" name="name" class="form-control" id="yourName" required minlength="6">
+                          <div class="invalid-feedback">Vui lòng nhập vào họ tên từ 6 kí tự!</div>
                         </div>
     
                         <div class="col-12">
@@ -76,15 +81,26 @@
                         <div class="col-12">
                           <label for="yourUsername" class="form-label">Nhập tên tài khoản</label>
                           <div class="input-group has-validation">
-                            <input type="text" name="username" class="form-control" id="yourUsername" required>
-                            <div class="invalid-feedback">Vui lòng nhập tên tài khoản!.</div>
+                            <input type="text" name="username" class="form-control" id="yourUsername" required minlength="6">
+                            <div class="invalid-feedback">Vui lòng nhập tên tài khoản từ 6 kí tự!.</div>
                           </div>
                         </div>
-    
+
+                        <div class="col-12">
+                          <label for="yourUsername" class="form-label">Nhập số điện thoại</label>
+                          <div class="input-group has-validation">
+                            <input type="number" name="phone" class="form-control" id="yourUsername" required minlength="10">
+                            <div class="invalid-feedback">Vui lòng nhập đúng số điện thoại!.</div>
+                            @if(Session::has('errorSignUp'))
+                                <div class="form-label" style="width:100%; color: red">{{ Session::get('errorSignUp') }}</div>
+                            @endif
+                          </div>
+                        </div>
+
                         <div class="col-12">
                           <label for="yourPassword" class="form-label">Nhập mật khẩu</label>
-                          <input type="password" name="password" class="form-control" id="yourPassword" required>
-                          <div class="invalid-feedback">Vui lòng nhập mật khẩu!</div>
+                          <input type="password" name="password" class="form-control" id="yourPassword" required minlength="6">
+                          <div class="invalid-feedback">Vui lòng nhập mật khẩu từ 6 kí tự!</div>
                         </div>
     
                         <div class="col-12">
@@ -98,19 +114,30 @@
                           <button class="btn btn-primary w-100" type="submit">Tạo tài khoản</button>
                         </div>
                         <div class="col-12">
-                          <p class="small mb-0">Bạn đã có tài khoản? <a href="pages-login.html">Đăng nhập ở đây</a></p>
+                          <p class="small mb-0">Bạn đã có tài khoản? <a href="{{ route("Formlogin") }}">Đăng nhập ở đây</a></p>
                         </div>
+                          <p class="p_khoi" style="width:100%;text-align:center;">Hoặc đăng nhập với</p>
+                              <a class="google-login-button" href = {{ route("loginByGoogle") }} style="margin-top:-5px;color:black">
+                                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" x="0px" y="0px" class="google-icon" viewBox="0 0 48 48" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12
+                          c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24
+                          c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
+                                    <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657
+                          C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path>
+                                    <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36
+                          c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path>
+                                    <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571
+                          c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
+                                  </svg>
+                                  <span class="font_google">Đăng nhập bằng Google</span>
+                              </a>
                       </form>
     
                     </div>
                   </div>
     
                   <div class="credits">
-                    <!-- All the links in the footer should remain intact. -->
-                    <!-- You can delete the links only if you purchased the pro version. -->
-                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                    Chào mừng bạn đến <a href="{{ route("home") }}">Khách sạn GTX</a>
                   </div>
     
                 </div>

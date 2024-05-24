@@ -1,4 +1,4 @@
-@extends('container')
+@extends('User.container')
 @section('body')
   <title>GTX - Đặt phòng khách sạn</title>
   <main id="main" class="main">
@@ -22,7 +22,7 @@
 
             <!-- Sales Card -->
             <div class="col-xxl-4 col-md-6">
-              <div class="card info-card sales-card">
+              <div class="card info-card sales-card" style="border-radius:20px">
                 <div class="card-body">
                   <h5 class="card-title">Số khách lưu trú <span>| Hôm nay</span></h5>
 
@@ -43,7 +43,7 @@
 
             <!-- Revenue Card -->
             <div class="col-xxl-4 col-md-6">
-              <div class="card info-card revenue-card">
+              <div class="card info-card revenue-card" style="border-radius:20px">
                 <div class="card-body">
                   <h5 class="card-title">Số phòng còn trống <span>| Hôm nay</span></h5>
 
@@ -64,7 +64,7 @@
 
             <!-- Customers Card -->
             <div class="col-xxl-4 col-xl-12">
-              <div class="card info-card customers-card">
+              <div class="card info-card customers-card" style="border-radius:20px">
                 <div class="card-body">
                   <h5 class="card-title">Số sao đánh giá <span>| Tất cả</span></h5>
 
@@ -74,7 +74,7 @@
                     </div>
                     <div class="ps-3">
                       <h6>1244</h6>
-                      <span class="text-danger small pt-1 fw-bold">Lượt đánh giá</span><span class="text-muted small pt-2 ps-1">trải nghiệm</span>
+                      <span class="text-danger small pt-1 fw-bold">Đánh giá</span><span class="text-muted small pt-2 ps-1">trải nghiệm</span>
 
                     </div>
                   </div>
@@ -86,67 +86,95 @@
 
             <!-- Reports -->
             <div class="col-12">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Phòng <span>/Phòng tiêu biểu</span></h5>
-                    <div class="bg-white" style="display:flex; flex-wrap:wrap">
-                      <div class="card" style="width: 18rem; margin-right:30px; box-shadow:2px 2px 10px 5px rgba(0,0,0,0.1)">
-                        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/482241348.jpg?k=b2b224709fdec8df749e7914ec9b99d6d06334199d22234e70b7033652124c54&o=&hp=1" style="width:288px;height:192px" class="card-img-top" alt="...">
-                        <div class="card-body">   
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="btn btn-primary" style="background-color: #74C0FC; border:none">Go somewhere</a>
+              <div class="card-body">
+                  <h5 class="card-title">Phòng <span>/Loại phòng tiêu biểu</span></h5>
+                  <div class="row bg-white" style="padding:20px;border-radius:20px;width:102%;display:flex;justify-content: space-around;
+                  ">
+                    @foreach($categoryFreatured as $r)
+                    @php
+                    $images = explode("|", $r->ANH);
+                    $firstImage = $images[0];
+                    $format_cost = number_format($r->GIATHUE, 0, ',', '.');
+          
+                    @endphp
+          
+                    <div class="col-md-6 mb-4" style="max-width:800px">
+                        <div class="Ha card my-specific-card {{$r->ISDELETE==0 ? 'disabled':''}}">
+                            <div class="card-img">
+                                <img src="{{$firstImage}}" alt="" class="{{$r->ISDELETE==0? 'grayscale':''}}">
+                            </div>
+                            <div class="card-info">
+                                <p class="text-title"> {{ $r->TENLOAIPHONG }}</p>
+                                <p class="card-text">
+          
+                                </p>
+                                @if ($r->ISDELETE==0)
+                                <p class="card-text"><i class="fa-solid fa-location-dot"
+                                        style="color:gray;margin-right:10px;"></i><span style="font-weight:bold;">Vị
+                                        trí:</span>
+                                    {{ $r->VITRI }}
+                                </p>
+                                <p class="card-text"><i class="fa-solid fa-hotel"
+                                        style="color:gray;margin-right:10px;"></i><span style="font-weight:bold;">Diện
+                                        tích:</span>
+                                    {{ $r->DIENTICH }}
+                                </p>
+          
+          
+                                <p class="card-text"><i class="fa-solid fa-box" style="color:#gray;"></i><span
+                                        style="font-weight:bold;margin-left:10px;">Sức chứa tối
+                                        đa:</span> {{ $r->SUCCHUA }}</p>
+                                <p class="card-text">
+                                <p class="card-text"><i class="fa-solid fa-ban" style="color:#gray;margin-right:5px;"></i>
+                                    {{ $r->QUYDINH }}
+                                </p>
+                                </p>
+          
+                            </div>
+                                <div class="card-footer" style="border-radius:20px;background-color:gray">
+                                <span class="text-title" style="color:white;">Không còn hoạt động</span>
+          
+                                @else
+                                      <p class="card-text"><i class="fa-solid fa-location-dot"style="color:#74C0FC;margin-right:10px;"></i><span style="font-weight:bold;">Vị trí:</span>{{ $r->VITRI }}
+                                      </p>
+                                      <p class="card-text"><i class="fa-solid fa-hotel"
+                                              style="color:#74C0FC;margin-right:10px;"></i><span style="font-weight:bold;">Diện
+                                              tích:</span>
+                                          {{ $r->DIENTICH }}
+                                      </p>
+                
+                
+                                      <p class="card-text"><i class="fa-solid fa-box" style="color:#74C0FC;"></i><span
+                                              style="font-weight:bold;margin-left:10px;">Sức chứa tối
+                                              đa:</span> {{ $r->SUCCHUA }}</p>
+                                      <p class="card-text">
+                                      <p class="card-text"><i class="fa-solid fa-ban" style="color:#74C0FC;margin-right:5px;"></i>
+                                          {{ $r->QUYDINH }}
+                                      </p>
+                                      </p>
+                
+                                  </div>
+                                <div class="card-footer" style="border-radius:20px">
+                                <span class="text-title" style="color:white;">{{ $format_cost }}<sup>đ</sup></span>
+                                @endif
+                                <div class="card-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                        <path fill="#fafafa"
+                                            d="M320 32c0-9.9-4.5-19.2-12.3-25.2S289.8-1.4 280.2 1l-179.9 45C79 51.3 64 70.5 64 92.5V448H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H96 288h32V480 32zM256 256c0 17.7-10.7 32-24 32s-24-14.3-24-32s10.7-32 24-32s24 14.3 24 32zm96-128h96V480c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H512V128c0-35.3-28.7-64-64-64H352v64z" />
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                      <div class="card" style="width: 18rem; margin-right:30px; box-shadow:2px 2px 10px 5px rgba(0,0,0,0.1)">
-                        <img src="https://www.thespruce.com/thmb/iMt63n8NGCojUETr6-T8oj-5-ns=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/PAinteriors-7-cafe9c2bd6be4823b9345e591e4f367f.jpg" style="width:288px;height:192px" class="card-img-top" alt="...">
-                        <div class="card-body">   
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="btn btn-primary" style="background-color: #74C0FC; border:none">Go somewhere</a>
-                        </div>
-                      </div>
-                      <div class="card" style="width: 18rem; margin-right:0px; box-shadow:2px 2px 10px 5px rgba(0,0,0,0.1)">
-                        <img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg"  style="width:288px;height:192px" class="card-img-top" alt="...">
-                        <div class="card-body">   
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="btn btn-primary" style="background-color: #74C0FC; border:none">Go somewhere</a>
-                        </div>
-                      </div>
-                      <div class="card" style="width: 18rem; margin-right:30px; box-shadow:2px 2px 10px 5px rgba(0,0,0,0.1)">
-                        <img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg"  style="width:288px;height:192px" class="card-img-top" alt="...">
-                        <div class="card-body">   
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="btn btn-primary" style="background-color: #74C0FC; border:none">Go somewhere</a>
-                        </div>
-                      </div>
-                      <div class="card" style="width: 18rem; margin-right:30px; box-shadow:2px 2px 10px 5px rgba(0,0,0,0.1)">
-                        <img src="https://www.thespruce.com/thmb/iMt63n8NGCojUETr6-T8oj-5-ns=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/PAinteriors-7-cafe9c2bd6be4823b9345e591e4f367f.jpg"  style="width:288px;height:192px" class="card-img-top" alt="...">
-                        <div class="card-body">   
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="btn btn-primary" style="background-color: #74C0FC; border:none">Go somewhere</a>
-                        </div>
-                      </div>
-                      <div class="card" style="width: 18rem; margin-right:0px; box-shadow:2px 2px 10px 5px rgba(0,0,0,0.1)">
-                        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/482241348.jpg?k=b2b224709fdec8df749e7914ec9b99d6d06334199d22234e70b7033652124c54&o=&hp=1"  style="width:288px;height:192px" class="card-img-top" alt="...">
-                        <div class="card-body">   
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="btn btn-primary" style="background-color: #74C0FC; border:none">Go somewhere</a>
-                        </div>
-                      </div>
                     </div>
+                    @endforeach
                 </div>
-
               </div>
-            </div><!-- End Recent Sales -->
+          </div>
+          <!-- End Recent Sales -->
 
             <!-- Top Selling -->
             <div class="col-12">
-              <div class="card top-selling overflow-auto">
+              <div class="card top-selling overflow-auto" style="border-radius:20px">
                 <div class="card-body pb-0">
                   <h5 class="card-title">Những đánh giá  <span>| tiêu biểu</span></h5>
 
@@ -213,12 +241,12 @@
 
           </div>
         </div><!-- End Left side columns -->
-
+        
         <!-- Right side columns -->
         <div class="col-lg-4">
 
           <!-- Recent Activity -->
-          <div class="card">
+          <div class="card" style="border-radius:20px">
             <div class="card-body">
               <h5 class="card-title">Hoạt động của khách sạn<span> | các ngày trong tuần</span></h5>
               <div class="activity">
@@ -239,7 +267,7 @@
           </div><!-- End Recent Activity -->
 
           <!-- Budget Report -->
-          <div class="card">
+          <div class="card" style="border-radius:20px">
             <div class="card-body pb-0">
               <h5 class="card-title">Thống kê loại phòng<span> | được đặt nhiều nhất</span></h5>
 
@@ -292,7 +320,7 @@
           </div><!-- End Budget Report -->
 
           <!-- Website Traffic --> 
-          <div class="card">
+          <div class="card" style="border-radius:20px">
             <div class="card-body pb-0">
               <h5 class="card-title">Số lượng <span>| từng loại phòng</span></h5>
 
@@ -357,7 +385,7 @@
           </div><!-- End Website Traffic -->
 
           <!-- News & Updates Traffic -->
-          <div class="card">
+          <div class="card" style="border-radius:20px">
             <div class="card-body pb-0">
               <h5 class="card-title">Tin tức &amp; Thông báo <span>| Hôm nay</span></h5>
 
